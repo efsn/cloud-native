@@ -1,0 +1,20 @@
+// multiple branch pipeline
+pipeline{
+    agent none
+    triggers {
+        pollSCM 'M/5 * * * *'
+    }
+    options{
+        buildDiscarder logRotator(
+            artifactDaysToKeepStr:'?',
+            artifactNumberToKeepStr:'?',
+            daysToKeepStr:'?',
+            numToKeepStr: '1'
+        )
+    }
+    stages{
+    }
+
+
+
+}

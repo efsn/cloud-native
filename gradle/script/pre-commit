@@ -1,0 +1,8 @@
+#!/bin/sh
+#set -x
+
+echo "pre commit hook"
+./gradlew clean check
+RESULT=$?
+
+exit $RESULT
