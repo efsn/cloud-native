@@ -2,16 +2,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 plugins {
-    val kotlinVersion = "1.5.30"
+    val kotlinVersion = "1.5.31"
     `java-library`
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
     kotlin("plugin.jpa") version kotlinVersion
-    id("org.springframework.boot") version "2.5.4"
+    id("org.springframework.boot") version "2.5.5"
 }
 
 repositories {
-    jcenter()
+    mavenLocal()
+    mavenCentral()
 }
 
 subprojects {
@@ -27,15 +28,15 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
     }
 
+// bom for root dependencies
     dependencies {
         implementation(kotlin("reflect"))
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
         implementation(platform(SpringBootPlugin.BOM_COORDINATES))
-        implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2020.0.3"))
+        implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2020.0.4"))
 
         implementation("org.springframework.boot:spring-boot-starter")
 //        implementation("org.slf4j:slf4j-api")
@@ -52,7 +53,7 @@ subprojects {
     tasks {
         withType<KotlinCompile> {
             kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_1_8.toString()
+                jvmTarget = JavaVersion.VERSION_11.toString()
                 freeCompilerArgs = listOf("-Xjsr305=strict")
             }
         }
